@@ -2,29 +2,9 @@
 <html>
 <head>
 <script>
-	// this is the working long version
-	
-	// start with an empty board
-	// var board = ["","","","","","","","",""];
-	
-	// this stores the input of each square into the array. there's probably a way to simplify this...
-	// board is incrementing by 1 (starting at 0)
-	// the name of the square is also incrementing by 1 (starting at 1)
-	// function storeMove() {
-	// 	board[0] = document.f1.s1.value;
-	// 	board[1] = document.f1.s2.value;
-	// 	board[2] = document.f1.s3.value;
-	// 	board[3] = document.f1.s4.value;
-	// 	board[4] = document.f1.s5.value;
-	// 	board[5] = document.f1.s6.value;
-	// 	board[6] = document.f1.s7.value;
-	// 	board[7] = document.f1.s8.value;
-	// 	board[8] = document.f1.s9.value;
-	// 	alert(board);
-	// }
-	
-	// there are eight ways to win (3 horizontal, 3 vertical, 2 diagonal)
+	// there are eight ways for x or o to win (3 horizontal, 3 vertical, 2 diagonal)
 	function checkWin() {
+		// checking for x wins
 		if ((board[0]=="x" && board[1]=="x" && board[2]=="x")||
 			(board[3]=="x" && board[4]=="x" && board[5]=="x")||
 			(board[6]=="x" && board[7]=="x" && board[8]=="x")||
@@ -35,6 +15,7 @@
 			(board[2]=="x" && board[4]=="x" && board[6]=="x")) {
 				alert("X wins!");
 		}
+		// checking for o wins
 		else if ((board[0]=="o" && board[1]=="o" && board[2]=="o")||
 			(board[3]=="o" && board[4]=="o" && board[5]=="o")||
 			(board[6]=="o" && board[7]=="o" && board[8]=="o")||
@@ -46,73 +27,21 @@
 				alert("O wins!");
 		}
 	}
-	
-	// this resets the board to the last stored move. I need to find a way to simplify this, too.
-	// it would just be the reverse of whatever I do with the first function
-	// function resetRound() {
-	// 	document.f1.s1.value = board[0];
-	// 	document.f1.s2.value = board[1];
-	// 	document.f1.s3.value = board[2];
-	// 	document.f1.s4.value = board[3];
-	// 	document.f1.s5.value = board[4];
-	// 	document.f1.s6.value = board[5];
-	// 	document.f1.s7.value = board[6];
-	// 	document.f1.s8.value = board[7];
-	// 	document.f1.s9.value = board[8];
-	// }
-	
-	
-	
-	
-	// if I store the addresses in an array, I can increment them along with the board array in a loop
-	
-	
-	
-	// this is the broken version
-	/*
-	// start with an empty board
-	var boardValue = ["","","","","","","","",""];	
-	
-	// store the document.object addresses of the squares in an array 
-	// this gives me an error ("document.f1 is not declared")
-	var boardPosition = [document.f1.s1.value, document.f1.s2.value, document.f1.s3.value, document.f1.s4.value, document.f1.s5.value, document.f1.s6.value, document.f1.s7.value, document.f1.s8.value, document.f1.s9.value];
 
-	function storeMove() {
-		for (var x = 0; x<9; x++) {
-			boardValue[x] = boardPosition[x]; // set the boardValue array equal to the corresponding input in the document
-		}
-		alert(boardValue);
-	}
-	
-	function resetRound() {
-		for (var y = 0; y<9; y++) {
-			boardPosition[y] = boardValue[y];
-		}
-		alert(boardPosition[0]);
-	}
-	*/
-	
-	
-	
-	//this version works halfway (it's the same as above, except the boardPosition array is declared within the functions)
-
-	// start with an empty board
 	var boardValue = ["","","","","","","","",""];	
 	var boardPosition = [document.f1.s1.value, document.f1.s2.value, document.f1.s3.value, document.f1.s4.value, document.f1.s5.value, document.f1.s6.value, document.f1.s7.value, document.f1.s8.value, document.f1.s9.value];
 	
-	// this function works (test by alerting the stored boardValue array)
 	function storeMove() {
-		for (var x = 0; x<9; x++) {
+		for (var x = 0; x < 9; x++) {
 			boardValue[x] = boardPosition[x]; // set the boardValue array equal to the corresponding input in the document
 		}
-		alert(boardValue);
+		alert(boardValue); // show the array in an alert box for debugging
 	}
 	
-	// but this function is broken. I think it has to do with boardPosition being stored within each function (declared twice)
 	function resetRound() {
-		var boardPosition = [document.f1.s1.value, document.f1.s2.value, document.f1.s3.value, document.f1.s4.value, document.f1.s5.value, document.f1.s6.value, document.f1.s7.value, document.f1.s8.value, document.f1.s9.value];
-		for (var y = 0; y<9; y++) {
-			boardPosition[y] = boardValue[y];
+		for (var x = 0; x < 9; x++) {
+			boardPosition[x] = boardValue[x]; // reset to last stored value
+			document.f1["s" + (x + 1)].value = boardValue[x]; // update the input fields
 		}
 	}
 
@@ -120,12 +49,22 @@
 </head>
 <body>
 	<form name="f1">
-		<input type="text" name="s1" size="1"><input type="text" name="s2" size="1"><input type="text" name="s3" size="1"><br>
-		<input type="text" name="s4" size="1"><input type="text" name="s5" size="1"><input type="text" name="s6" size="1"><br>
-		<input type="text" name="s7" size="1"><input type="text" name="s8" size="1"><input type="text" name="s9" size="1"><p>
+		<input type="text" name="s1" size="1">
+		<input type="text" name="s2" size="1">
+		<input type="text" name="s3" size="1">
+		<br>
+		<input type="text" name="s4" size="1">
+		<input type="text" name="s5" size="1">
+		<input type="text" name="s6" size="1">
+		<br>
+		<input type="text" name="s7" size="1">
+		<input type="text" name="s8" size="1">
+		<input type="text" name="s9" size="1">
+		<p>
 		<p>
 		<input type="button" value="Store Move" onClick="storeMove(); checkWin();"><br>
-		<input type="button" value="Reset" onClick="resetRound();"> <!--this isn't meant to empty the board, it's to input the stored values into the squares on the screen.-->
+		<input type="button" value="Reset" onClick="resetRound();">
+		<!--Reset isn't meant to empty the board, it's to input the stored values into the squares on the screen.-->
 	</form>
 </body>
 </html>
