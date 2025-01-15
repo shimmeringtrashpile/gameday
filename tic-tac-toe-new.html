@@ -2,49 +2,52 @@
 <html>
 <head>
 <script>
+window.onload = function() {
+	var boardValue = ["","","","","","","","",""];	
+
 	// there are eight ways for x or o to win (3 horizontal, 3 vertical, 2 diagonal)
 	function checkWin() {
 		// checking for x wins
-		if ((board[0]=="x" && board[1]=="x" && board[2]=="x")||
-			(board[3]=="x" && board[4]=="x" && board[5]=="x")||
-			(board[6]=="x" && board[7]=="x" && board[8]=="x")||
-			(board[0]=="x" && board[3]=="x" && board[6]=="x")||
-			(board[1]=="x" && board[4]=="x" && board[7]=="x")||
-			(board[2]=="x" && board[5]=="x" && board[8]=="x")||
-			(board[0]=="x" && board[4]=="x" && board[8]=="x")||
-			(board[2]=="x" && board[4]=="x" && board[6]=="x")) {
+		if ((boardValue[0]=="x" && boardValue[1]=="x" && boardValue[2]=="x")||
+			(boardValue[3]=="x" && boardValue[4]=="x" && boardValue[5]=="x")||
+			(boardValue[6]=="x" && boardValue[7]=="x" && boardValue[8]=="x")||
+			(boardValue[0]=="x" && boardValue[3]=="x" && boardValue[6]=="x")||
+			(boardValue[1]=="x" && boardValue[4]=="x" && boardValue[7]=="x")||
+			(boardValue[2]=="x" && boardValue[5]=="x" && boardValue[8]=="x")||
+			(boardValue[0]=="x" && boardValue[4]=="x" && boardValue[8]=="x")||
+			(boardValue[2]=="x" && boardValue[4]=="x" && boardValue[6]=="x")) {
 				alert("X wins!");
 		}
 		// checking for o wins
-		else if ((board[0]=="o" && board[1]=="o" && board[2]=="o")||
-			(board[3]=="o" && board[4]=="o" && board[5]=="o")||
-			(board[6]=="o" && board[7]=="o" && board[8]=="o")||
-			(board[0]=="o" && board[3]=="o" && board[6]=="o")||
-			(board[1]=="o" && board[4]=="o" && board[7]=="o")||
-			(board[2]=="o" && board[5]=="o" && board[8]=="o")||
-			(board[0]=="o" && board[4]=="o" && board[8]=="o")||
-			(board[2]=="o" && board[4]=="o" && board[6]=="o")) {
+		else if ((boardValue[0]=="o" && boardValue[1]=="o" && boardValue[2]=="o")||
+			(boardValue[3]=="o" && boardValue[4]=="o" && boardValue[5]=="o")||
+			(boardValue[6]=="o" && boardValue[7]=="o" && boardValue[8]=="o")||
+			(boardValue[0]=="o" && boardValue[3]=="o" && boardValue[6]=="o")||
+			(boardValue[1]=="o" && boardValue[4]=="o" && boardValue[7]=="o")||
+			(boardValue[2]=="o" && boardValue[5]=="o" && boardValue[8]=="o")||
+			(boardValue[0]=="o" && boardValue[4]=="o" && boardValue[8]=="o")||
+			(boardValue[2]=="o" && boardValue[4]=="o" && boardValue[6]=="o")) {
 				alert("O wins!");
 		}
 	}
 
-	var boardValue = ["","","","","","","","",""];	
-	var boardPosition = [document.f1.s1.value, document.f1.s2.value, document.f1.s3.value, document.f1.s4.value, document.f1.s5.value, document.f1.s6.value, document.f1.s7.value, document.f1.s8.value, document.f1.s9.value];
-	
 	function storeMove() {
 		for (var x = 0; x < 9; x++) {
-			boardValue[x] = boardPosition[x]; // set the boardValue array equal to the corresponding input in the document
+			boardValue[x] = document.f1["s" + (x + 1)].value; // update the array with screen field values
 		}
-		alert(boardValue); // show the array in an alert box for debugging
+		alert("Board Values: " + boardValue.join(", ")); // show the array with a label in an alert box for debugging
+		checkWin(); // check for a win after each move is stored
 	}
 	
 	function resetRound() {
 		for (var x = 0; x < 9; x++) {
-			boardPosition[x] = boardValue[x]; // reset to last stored value
-			document.f1["s" + (x + 1)].value = boardValue[x]; // update the input fields
+			document.f1["s" + (x + 1)].value = boardValue[x]; // update the input fields with the stored values
 		}
 	}
 
+    document.getElementById("storeMoveButton").onclick = storeMove;
+    document.getElementById("resetButton").onclick = resetRound;
+};
 </script>
 </head>
 <body>
@@ -62,9 +65,8 @@
 		<input type="text" name="s9" size="1">
 		<p>
 		<p>
-		<input type="button" value="Store Move" onClick="storeMove(); checkWin();"><br>
-		<input type="button" value="Reset" onClick="resetRound();">
-		<!--Reset isn't meant to empty the board, it's to input the stored values into the squares on the screen.-->
+		<input type="button" id="storeMoveButton" value="Store Move" onClick="storeMove();"><br>
+		<input type="button" id="resetButton" value="Reset" onClick="resetRound();"> <!--Revert to last stored move-->
 	</form>
 </body>
 </html>
