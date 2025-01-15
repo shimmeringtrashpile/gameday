@@ -3,45 +3,45 @@
 <head>
 <script>
 window.onload = function() {
-	var boardValue = ["","","","","","","","",""];	
+	var boardValues = ["","","","","","","","",""];	
 
 	// there are eight ways for x or o to win (3 horizontal, 3 vertical, 2 diagonal)
 	function checkWin() {
 		// checking for x wins
-		if ((boardValue[0]=="x" && boardValue[1]=="x" && boardValue[2]=="x")||
-			(boardValue[3]=="x" && boardValue[4]=="x" && boardValue[5]=="x")||
-			(boardValue[6]=="x" && boardValue[7]=="x" && boardValue[8]=="x")||
-			(boardValue[0]=="x" && boardValue[3]=="x" && boardValue[6]=="x")||
-			(boardValue[1]=="x" && boardValue[4]=="x" && boardValue[7]=="x")||
-			(boardValue[2]=="x" && boardValue[5]=="x" && boardValue[8]=="x")||
-			(boardValue[0]=="x" && boardValue[4]=="x" && boardValue[8]=="x")||
-			(boardValue[2]=="x" && boardValue[4]=="x" && boardValue[6]=="x")) {
+		if ((boardValues[0]=="x" && boardValues[1]=="x" && boardValues[2]=="x")||
+			(boardValues[3]=="x" && boardValues[4]=="x" && boardValues[5]=="x")||
+			(boardValues[6]=="x" && boardValues[7]=="x" && boardValues[8]=="x")||
+			(boardValues[0]=="x" && boardValues[3]=="x" && boardValues[6]=="x")||
+			(boardValues[1]=="x" && boardValues[4]=="x" && boardValues[7]=="x")||
+			(boardValues[2]=="x" && boardValues[5]=="x" && boardValues[8]=="x")||
+			(boardValues[0]=="x" && boardValues[4]=="x" && boardValues[8]=="x")||
+			(boardValues[2]=="x" && boardValues[4]=="x" && boardValues[6]=="x")) {
 				alert("X wins!");
 		}
 		// checking for o wins
-		else if ((boardValue[0]=="o" && boardValue[1]=="o" && boardValue[2]=="o")||
-			(boardValue[3]=="o" && boardValue[4]=="o" && boardValue[5]=="o")||
-			(boardValue[6]=="o" && boardValue[7]=="o" && boardValue[8]=="o")||
-			(boardValue[0]=="o" && boardValue[3]=="o" && boardValue[6]=="o")||
-			(boardValue[1]=="o" && boardValue[4]=="o" && boardValue[7]=="o")||
-			(boardValue[2]=="o" && boardValue[5]=="o" && boardValue[8]=="o")||
-			(boardValue[0]=="o" && boardValue[4]=="o" && boardValue[8]=="o")||
-			(boardValue[2]=="o" && boardValue[4]=="o" && boardValue[6]=="o")) {
+		else if ((boardValues[0]=="o" && boardValues[1]=="o" && boardValues[2]=="o")||
+			(boardValues[3]=="o" && boardValues[4]=="o" && boardValues[5]=="o")||
+			(boardValues[6]=="o" && boardValues[7]=="o" && boardValues[8]=="o")||
+			(boardValues[0]=="o" && boardValues[3]=="o" && boardValues[6]=="o")||
+			(boardValues[1]=="o" && boardValues[4]=="o" && boardValues[7]=="o")||
+			(boardValues[2]=="o" && boardValues[5]=="o" && boardValues[8]=="o")||
+			(boardValues[0]=="o" && boardValues[4]=="o" && boardValues[8]=="o")||
+			(boardValues[2]=="o" && boardValues[4]=="o" && boardValues[6]=="o")) {
 				alert("O wins!");
 		}
 	}
 
 	function storeMove() {
 		for (var x = 0; x < 9; x++) {
-			boardValue[x] = document.f1["s" + (x + 1)].value; // update the array with screen field values
+			boardValues[x] = document.f1["s" + (x + 1)].value; // update the array with screen field values
 		}
-		alert("Board Values: " + boardValue.join(", ")); // show the array with a label in an alert box for debugging
+		alert("Board Values: " + boardValues.join(", ")); // show the array with a label in an alert box for debugging
 		checkWin(); // check for a win after each move is stored
 	}
 	
 	function resetRound() {
 		for (var x = 0; x < 9; x++) {
-			document.f1["s" + (x + 1)].value = boardValue[x]; // update the input fields with the stored values
+			document.f1["s" + (x + 1)].value = boardValues[x]; // update the input fields with the stored values
 		}
 	}
 
